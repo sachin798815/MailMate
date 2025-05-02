@@ -1,0 +1,6 @@
+/* src/index.css */
+
+/* Reset some default styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
