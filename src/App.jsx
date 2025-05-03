@@ -1,9 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import SideNav from './components/SideNav';
-// import Home from './pages/Home';
-import { useState } from 'react';
+import MainContent from './components/MainContent';
 
 const App = () => {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
@@ -18,17 +17,14 @@ const App = () => {
         {/* Top Navigation */}
         <TopNav toggleSideNav={toggleSideNav} />
 
-        <div className="flex flex-1">
+        <div className="flex flex-1 overflow-hidden">
           {/* Side Navigation */}
-          <SideNav isOpen={isSideNavOpen} toggleSideNav={toggleSideNav} />
+          <div className={`${isSideNavOpen ? 'block' : 'hidden'} md:block`}>
+            <SideNav toggleSideNav={toggleSideNav} />
+          </div>
 
           {/* Main Content */}
-          <main className="flex-1 p-4 overflow-auto">
-            <Routes>
-              {/* <Route path="/" element={<Home />} /> */}
-              {/* Other Routes */}
-            </Routes>
-          </main>
+          <MainContent />
         </div>
       </div>
     </Router>
