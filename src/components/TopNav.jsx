@@ -1,9 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const TopNav = () => {
   return (
     <div className="bg-primary-dark p-4 shadow-md">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-white">
           MailMate
@@ -13,7 +14,7 @@ const TopNav = () => {
         <input
           type="text"
           placeholder="Search..."
-          className="w-64 p-2 rounded-lg border border-gray-600 text-white bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-accent"
+          className="p-2 rounded-lg border border-gray-600 text-white bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-accent"
         />
 
         {/* Logout button */}

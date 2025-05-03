@@ -1,30 +1,30 @@
-// src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import TopNav from './components/TopNav';
 import SideNav from './components/SideNav';
-// import Inbox from './pages/Inbox';
-// import Sent from './pages/Sent';
-// import Trash from './pages/Trash';
-// import Compose from './pages/Compose';
+// import HomePage from './pages/HomePage';
+// import InboxPage from './pages/InboxPage';
 
 const App = () => {
   return (
-    <Router> {/* Wrap everything in Router here */}
-      <div className="flex flex-col h-screen">
-        <TopNav />
-        <div className="flex flex-1">
-          <SideNav />
-          <div className="flex-1 p-4 overflow-y-auto">
-            <Routes>
-              {/* <Route path="/" element={<Inbox />} />
-              <Route path="/sent" element={<Sent />} />
-              <Route path="/trash" element={<Trash />} />
-              <Route path="/compose" element={<Compose />} /> */}
-            </Routes>
-          </div>
+    <BrowserRouter> {/* Wrap everything in BrowserRouter */}
+      <div className="flex">
+        {/* SideNav */}
+        <SideNav />
+
+        <div className="flex-1">
+          {/* TopNav */}
+          <TopNav />
+
+          {/* Routes */}
+          <Routes>
+            {/* <Route path="/" element={<HomePage />} />
+            <Route path="/inbox" element={<InboxPage />} /> */}
+          </Routes>
         </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 };
 

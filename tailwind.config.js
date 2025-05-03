@@ -1,14 +1,11 @@
-export const content = [
-  "./src/**/*.{js,jsx,ts,tsx}",
-];
-export const theme = {
-  extend: {
-    colors: {
-      "primary-dark": "#1F2937", // Dark background color
-      "secondary-dark": "#2D3748", // Darker secondary color for inputs, etc.
-      "accent": "#3182CE", // Accent color
-      "accent-light": "#63B3ED", // Accent hover color
-    },
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
   },
-};
-export const plugins = [];
+  plugins: [],
+}
