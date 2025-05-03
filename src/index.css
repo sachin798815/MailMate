@@ -1,4 +1,20 @@
+/* index.css */
 
+/* Tailwind base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom color variables */
+:root {
+  --primary-dark: #1a1a1a;
+  --secondary-dark: #333333;
+  --accent: #ff5722; /* Or any accent color */
+  --accent-light: #ff8a5c;
+}
+
+/* Global body and other default styles */
+body {
+  background-color: var(--primary-dark);
+  color: white;
+}

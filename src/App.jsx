@@ -1,29 +1,37 @@
-// App.jsx
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import SideNav from './components/SideNav';
-// import HomePage from './pages/HomePage';
-// import InboxPage from './pages/InboxPage';
+// import Home from './pages/Home';
+import { useState } from 'react';
 
 const App = () => {
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+
+  const toggleSideNav = () => {
+    setIsSideNavOpen(!isSideNavOpen);
+  };
+
   return (
-    <div className="flex">
-      {/* SideNav */}
-      <SideNav />
+    <Router>
+      <div className="flex flex-col h-screen bg-primary-dark text-white">
+        {/* Top Navigation */}
+        <TopNav toggleSideNav={toggleSideNav} />
 
-      <div className="flex-1">
-        {/* TopNav */}
-        <TopNav />
+        <div className="flex flex-1">
+          {/* Side Navigation */}
+          <SideNav isOpen={isSideNavOpen} toggleSideNav={toggleSideNav} />
 
-        {/* Routes */}
-        <Routes>
-          {/* <Route path="/" element={<HomePage />} />
-          <Route path="/inbox" element={<InboxPage />} /> */}
-        </Routes>
+          {/* Main Content */}
+          <main className="flex-1 p-4 overflow-auto">
+            <Routes>
+              {/* <Route path="/" element={<Home />} /> */}
+              {/* Other Routes */}
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 

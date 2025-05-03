@@ -1,13 +1,35 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SideNav = () => {
+const SideNav = ({ isOpen, toggleSideNav }) => {
   return (
-    <div className="w-64 bg-primary-dark text-white min-h-screen">
+    <div
+      className={`${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      } fixed top-0 left-0 w-64 h-full bg-primary-dark text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0`}
+    >
       <div className="p-4">
-        <Link to="/" className="block p-2 hover:bg-accent">Home</Link>
-        <Link to="/inbox" className="block p-2 hover:bg-accent">Inbox</Link>
-        {/* Add more links here */}
+        <ul className="space-y-4">
+          <li>
+            <Link to="/" className="text-xl">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/inbox" className="text-xl">
+              Inbox
+            </Link>
+          </li>
+          <li>
+            <Link to="/sent" className="text-xl">
+              Sent
+            </Link>
+          </li>
+          <li>
+            <Link to="/trash" className="text-xl">
+              Trash
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   );
