@@ -3,33 +3,32 @@ import { Link } from 'react-router-dom';
 const SideNav = ({ isOpen, toggleSideNav }) => {
   return (
     <div
-      className={`${
+      className={`fixed inset-0 md:relative md:flex md:w-64 bg-primary-dark text-white p-4 transition-all duration-300 ease-in-out transform ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
-      } fixed top-0 left-0 w-64 h-full bg-primary-dark text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0`}
+      } md:translate-x-0`}
     >
-      <div className="p-4">
-        <ul className="space-y-4">
-          <li>
-            <Link to="/" className="text-xl">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/inbox" className="text-xl">
-              Inbox
-            </Link>
-          </li>
-          <li>
-            <Link to="/sent" className="text-xl">
-              Sent
-            </Link>
-          </li>
-          <li>
-            <Link to="/trash" className="text-xl">
-              Trash
-            </Link>
-          </li>
-        </ul>
+      {/* Close button for mobile */}
+      <button
+        className="md:hidden text-white mb-4"
+        onClick={toggleSideNav}
+      >
+        <i className="fas fa-times"></i> {/* Close Icon */}
+      </button>
+
+      {/* Side Navigation Links */}
+      <div className="flex flex-col space-y-4">
+        <Link to="/" className="text-lg hover:text-accent transition duration-200">
+          Home
+        </Link>
+        <Link to="/inbox" className="text-lg hover:text-accent transition duration-200">
+          Inbox
+        </Link>
+        <Link to="/sent" className="text-lg hover:text-accent transition duration-200">
+          Sent
+        </Link>
+        <Link to="/trash" className="text-lg hover:text-accent transition duration-200">
+          Trash
+        </Link>
       </div>
     </div>
   );

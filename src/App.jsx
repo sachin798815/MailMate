@@ -20,7 +20,7 @@ const App = () => {
         <div className="flex flex-1 overflow-hidden">
           {/* Side Navigation */}
           <div className={`${isSideNavOpen ? 'block' : 'hidden'} md:block`}>
-            <SideNav toggleSideNav={toggleSideNav} />
+            <SideNav isOpen={isSideNavOpen} toggleSideNav={toggleSideNav} />
           </div>
 
           {/* Main Content */}
