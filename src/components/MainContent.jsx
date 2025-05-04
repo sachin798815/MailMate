@@ -4,6 +4,7 @@ import Inbox from '../pages/Inbox';
 import Sent from '../pages/Sent';
 import Trash from '../pages/Trash';
 import EmailDetails from '../pages/EmailDetails';
+import Compose from './Compose';
 
 const MainContent = () => {
   return (
@@ -13,6 +14,7 @@ const MainContent = () => {
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/sent" element={<Sent />} />
         <Route path="/trash" element={<Trash />} />
+        <Route path="/compose" element={<Compose />} />
         {/* Email Details Route */}
         <Route path="/inbox/:id" element={<EmailDetails />} />
         <Route path="/sent/:id" element={<EmailDetails />} />

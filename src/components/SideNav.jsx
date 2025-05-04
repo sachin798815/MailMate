@@ -1,6 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SideNav = ({ isOpen, toggleSideNav }) => {
+  const navigate = useNavigate();
+
+  const handleComposeClick = () => {
+    navigate('/compose');
+    if (isOpen) toggleSideNav(); // Close sidenav on mobile after clicking
+  };
+
   return (
     <div
       className={`fixed inset-0 md:relative md:flex md:w-64 bg-primary-dark text-white p-4 transition-all duration-300 ease-in-out transform ${
@@ -17,6 +24,15 @@ const SideNav = ({ isOpen, toggleSideNav }) => {
 
       {/* Side Navigation Links */}
       <div className="flex flex-col space-y-4">
+        {/* Compose Button */}
+        <button
+          onClick={handleComposeClick}
+          className="bg-accent hover:bg-accent-light text-white py-2 px-4 rounded-lg text-lg font-semibold shadow-md transition duration-200"
+        >
+          Compose
+        </button>
+
+        {/* Other Links */}
         <Link to="/" className="text-lg hover:text-accent transition duration-200">
           Home
         </Link>
