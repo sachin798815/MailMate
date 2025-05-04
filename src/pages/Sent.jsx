@@ -6,7 +6,6 @@ const Sent = () => {
     { id: 1, subject: 'Follow-up on Meeting', recipient: 'boss@company.com', date: '2025-05-04', preview: 'Thanks for the meeting. Here are the action points.' },
     { id: 2, subject: 'Invoice Sent', recipient: 'client@business.com', date: '2025-05-03', preview: 'Please find the attached invoice for your records.' },
     { id: 3, subject: 'Project Proposal', recipient: 'partner@firm.com', date: '2025-05-02', preview: 'Sharing the project proposal for your review.' },
-    // Add more mock sent emails as needed
   ];
 
   return (
