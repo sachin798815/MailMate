@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
 
 const Sent = () => {
-  // Mock sent emails data
   const emails = [
-    { id: 1, subject: 'Follow-up on Meeting', recipient: 'boss@company.com', date: '2025-05-04', preview: 'Thanks for the meeting. Here are the action points.' },
-    { id: 2, subject: 'Invoice Sent', recipient: 'client@business.com', date: '2025-05-03', preview: 'Please find the attached invoice for your records.' },
-    { id: 3, subject: 'Project Proposal', recipient: 'partner@firm.com', date: '2025-05-02', preview: 'Sharing the project proposal for your review.' },
+    { id: 1, subject: 'Project Update', recipient: 'team@company.com', date: '2025-05-04', preview: 'Here is the latest update on the project.' },
+    { id: 2, subject: 'Invoice for Services', recipient: 'client@company.com', date: '2025-05-03', preview: 'The invoice for the recent services is attached.' },
+    { id: 3, subject: 'Meeting Follow-up', recipient: 'boss@company.com', date: '2025-05-02', preview: 'Following up on the meeting we had last week.' },
   ];
 
   return (
     <div className="text-white">
       <h1 className="text-3xl font-bold mb-4">Sent</h1>
 
-      {/* Sent Emails List */}
       <div className="space-y-4">
         {emails.map((email) => (
           <div

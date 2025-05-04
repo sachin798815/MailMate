@@ -3,7 +3,7 @@ import Home from '../pages/Home';
 import Inbox from '../pages/Inbox';
 import Sent from '../pages/Sent';
 import Trash from '../pages/Trash';
-
+import EmailDetails from '../pages/EmailDetails';
 
 const MainContent = () => {
   return (
@@ -11,9 +11,12 @@ const MainContent = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/inbox" element={<Inbox />} />
-        <Route path="/sent" element={<Sent/>} />
-        <Route path="/trash" element={<Trash/>} />
-
+        <Route path="/sent" element={<Sent />} />
+        <Route path="/trash" element={<Trash />} />
+        {/* Email Details Route */}
+        <Route path="/inbox/:id" element={<EmailDetails />} />
+        <Route path="/sent/:id" element={<EmailDetails />} />
+        <Route path="/trash/:id" element={<EmailDetails />} />
       </Routes>
     </div>
   );

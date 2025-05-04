@@ -1,19 +1,16 @@
 import { Link } from 'react-router-dom';
 
 const Inbox = () => {
-  // Mock email data
   const emails = [
     { id: 1, subject: 'Meeting Reminder', sender: 'HR@company.com', date: '2025-05-04', preview: 'Don\'t forget the meeting tomorrow at 10 AM.' },
     { id: 2, subject: 'Invoice from Vendor', sender: 'vendor@company.com', date: '2025-05-03', preview: 'Here is the invoice for the latest order.' },
     { id: 3, subject: 'Project Update', sender: 'manager@company.com', date: '2025-05-02', preview: 'The project is going well and we are on track for delivery.' },
-    // Add more mock emails as needed
   ];
 
   return (
     <div className="text-white">
       <h1 className="text-3xl font-bold mb-4">Inbox</h1>
 
-      {/* Email List */}
       <div className="space-y-4">
         {emails.map((email) => (
           <div

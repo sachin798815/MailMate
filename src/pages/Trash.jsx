@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
 
 const Trash = () => {
-  // Mock email data
   const emails = [
-    { id: 1, subject: 'Deleted Newsletter', sender: 'news@site.com', date: '2025-05-01', preview: 'Here’s this week’s news roundup.' },
-    { id: 2, subject: 'Spam Offer', sender: 'spam@offer.com', date: '2025-04-30', preview: 'Congratulations! You’ve won a prize.' },
-    { id: 3, subject: 'Old Invoice', sender: 'billing@vendor.com', date: '2025-04-29', preview: 'Your invoice is attached for your records.' },
+    { id: 1, subject: 'Old Invoice', sender: 'vendor@company.com', date: '2025-04-15', preview: 'This invoice is outdated and should be reviewed.' },
+    { id: 2, subject: 'Spam Email', sender: 'unknown@company.com', date: '2025-04-10', preview: 'This email is marked as spam.' },
+    { id: 3, subject: 'Project Draft', sender: 'manager@company.com', date: '2025-04-08', preview: 'This was a draft of the project proposal.' },
   ];
 
   return (
     <div className="text-white">
       <h1 className="text-3xl font-bold mb-4">Trash</h1>
 
-      {/* Email List */}
       <div className="space-y-4">
         {emails.map((email) => (
           <div
