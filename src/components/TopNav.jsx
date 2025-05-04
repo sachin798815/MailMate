@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useSearch } from '../contexts/SearchContext';
 
 const TopNav = ({ toggleSideNav }) => {
+  const { searchQuery, setSearchQuery } = useSearch(); // Access search query and setter from context
+
   return (
     <div className="bg-primary-dark p-4 shadow-md flex items-center justify-between">
       {/* Hamburger Icon for Mobile View */}
@@ -22,6 +25,8 @@ const TopNav = ({ toggleSideNav }) => {
           type="text"
           placeholder="Search..."
           className="w-full p-2 rounded-lg border border-gray-600 text-white bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-accent"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} // Update search query in context
         />
       </div>
 

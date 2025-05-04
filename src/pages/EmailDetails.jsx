@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const EmailDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   
   // Mock email data
   const emails = {
@@ -18,6 +19,14 @@ const EmailDetails = () => {
 
   return (
     <div className="text-white">
+      {/* Back Button */}
+      <button 
+        onClick={() => navigate(-1)} // Navigate to the previous page
+        className="bg-accent hover:bg-accent-light text-white px-4 py-2 rounded-lg mb-4"
+      >
+        Back
+      </button>
+
       <h1 className="text-3xl font-bold mb-4">{email.subject}</h1>
       <p className="text-gray-300 mb-4">{email.body}</p>
       <p className="text-sm text-gray-400">{`From: ${email.sender} | ${email.date}`}</p>
