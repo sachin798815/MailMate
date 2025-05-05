@@ -1,26 +1,26 @@
 import { useState } from 'react';
+import { useSent } from '../contexts/SentContext';
 
 const Compose = () => {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
+  const { addSentEmail } = useSent();
 
   const handleSend = (e) => {
     e.preventDefault();
     const newEmail = {
-      id: Date.now(), // simple unique id
+      id: Date.now(),
       recipient: to,
       subject,
       body,
       date: new Date().toISOString().split('T')[0],
     };
-    console.log('Sending email:', newEmail);
+    addSentEmail(newEmail);
     alert('Email sent successfully!');
-    // Clear form
     setTo('');
     setSubject('');
     setBody('');
-    // Later push newEmail into Sent array or Firebase
   };
 
   return (
