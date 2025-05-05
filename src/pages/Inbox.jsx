@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useSearch } from '../contexts/SearchContext';
 import { useInbox } from '../contexts/InboxContext';
+import { useTrash } from '../contexts/TrashContext';
 
 const Inbox = () => {
   const { searchQuery } = useSearch();
-  const { inboxEmails } = useInbox();
+  const { inboxEmails, deleteInboxEmail } = useInbox();
+  const { addTrashEmail } = useTrash();
 
   const filteredEmails = inboxEmails.filter(
     (email) =>
@@ -32,6 +34,21 @@ const Inbox = () => {
               <p className="text-gray-300">{email.body.substring(0, 50)}...</p>
               <p className="text-sm text-gray-400">{`From: ${email.sender} | ${email.date}`}</p>
             </Link>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // prevents link navigation
+                e.preventDefault();
+                const emailToDelete = inboxEmails.find((em) => em.id === email.id);
+                if (emailToDelete) {
+                  addTrashEmail(emailToDelete);
+                  deleteInboxEmail(email.id);
+                }
+              }}
+              className="mt-2 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>

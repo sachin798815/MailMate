@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useInbox } from "../contexts/InboxContext";
 import { useSent } from "../contexts/SentContext";
+import { useTrash } from "../contexts/TrashContext";
 import { useEffect } from "react";
 
 const EmailDetails = () => {
@@ -8,18 +9,23 @@ const EmailDetails = () => {
   const navigate = useNavigate();
   const { inboxEmails, markAsRead: markInboxAsRead } = useInbox();
   const { sentEmails } = useSent();
+  const { trashEmails } = useTrash();
 
   const numericId = parseInt(id, 10);
 
-  const email =
-    sentEmails.find((e) => e.id === numericId) ||
-    inboxEmails.find((e) => e.id === numericId);
+  const inboxEmail = inboxEmails.find((e) => e.id === numericId);
+  const sentEmail = sentEmails.find((e) => e.id === numericId);
+  const trashEmail = trashEmails.find((e) => e.id === numericId);
+
+  const email = inboxEmail || sentEmail || trashEmail;
 
   useEffect(() => {
-    if (email && !email.read && !email.sender) {
+    if (!email) return;
+    // ✅ Only mark as read if it's an inbox email
+    if (inboxEmail && !email.read) {
       markInboxAsRead(email.id);
     }
-  }, [email, markInboxAsRead]);
+  }, [email?.id, email?.read, inboxEmail, markInboxAsRead]);
 
   if (!email) {
     return <div className="text-white">Email not found</div>;

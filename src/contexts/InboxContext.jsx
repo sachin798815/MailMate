@@ -36,7 +36,7 @@ export const InboxProvider = ({ children }) => {
 
   const deleteInboxEmail = (id) => {
     setInboxEmails((prev) => prev.filter((email) => email.id !== id));
-  };
+  };  
 
   return (
     <InboxContext.Provider value={{ inboxEmails, addInboxEmail, markAsRead, deleteInboxEmail }}>

@@ -1,6 +1,15 @@
 import React from 'react';
+import { useInbox } from '../contexts/InboxContext';
+import { useSent } from '../contexts/SentContext';
 
 const Home = () => {
+  const { inboxEmails } = useInbox();
+  const { sentEmails } = useSent();
+
+  const unreadCount = inboxEmails.filter((email) => !email.read).length;
+  const totalInboxCount = inboxEmails.length;
+  const sentCount = sentEmails.length;
+
   return (
     <div className="text-white">
       <h1 className="text-3xl font-bold mb-4">Welcome to MailMate</h1>
@@ -10,17 +19,17 @@ const Home = () => {
         {/* Stat Cards */}
         <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-lg transition">
           <h2 className="text-xl font-semibold mb-2">Unread Emails</h2>
-          <p className="text-4xl font-bold">0</p>
+          <p className="text-4xl font-bold">{unreadCount}</p>
         </div>
 
         <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-lg transition">
           <h2 className="text-xl font-semibold mb-2">Total Emails</h2>
-          <p className="text-4xl font-bold">0</p>
+          <p className="text-4xl font-bold">{totalInboxCount}</p>
         </div>
 
         <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-lg transition">
           <h2 className="text-xl font-semibold mb-2">Sent Emails</h2>
-          <p className="text-4xl font-bold">0</p>
+          <p className="text-4xl font-bold">{sentCount}</p>
         </div>
       </div>
     </div>
