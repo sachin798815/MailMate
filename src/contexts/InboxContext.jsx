@@ -4,7 +4,6 @@ const InboxContext = createContext();
 
 export const InboxProvider = ({ children }) => {
   const [inboxEmails, setInboxEmails] = useState([
-    // Optionally preload some emails or keep it empty
     {
       id: 1,
       sender: 'HR@company.com',
@@ -25,8 +24,12 @@ export const InboxProvider = ({ children }) => {
     setInboxEmails((prev) => [...prev, email]);
   };
 
+  const deleteInboxEmail = (id) => {
+    setInboxEmails((prev) => prev.filter((email) => email.id !== id));
+  };
+
   return (
-    <InboxContext.Provider value={{ inboxEmails, addInboxEmail }}>
+    <InboxContext.Provider value={{ inboxEmails, addInboxEmail, deleteInboxEmail }}>
       {children}
     </InboxContext.Provider>
   );

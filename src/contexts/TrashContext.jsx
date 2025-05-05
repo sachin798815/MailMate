@@ -9,8 +9,12 @@ export const TrashProvider = ({ children }) => {
     setTrashEmails((prev) => [...prev, email]);
   };
 
+  const deleteTrashEmail = (id) => {
+    setTrashEmails((prev) => prev.filter((email) => email.id !== id));
+  };
+
   return (
-    <TrashContext.Provider value={{ trashEmails, addTrashEmail }}>
+    <TrashContext.Provider value={{ trashEmails, addTrashEmail, deleteTrashEmail }}>
       {children}
     </TrashContext.Provider>
   );

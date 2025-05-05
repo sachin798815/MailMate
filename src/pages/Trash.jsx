@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom';
-import { useSearch } from '../contexts/SearchContext'; // Import the custom hook
+import { useSearch } from '../contexts/SearchContext';
+import { useTrash } from '../contexts/TrashContext';
 
 const Trash = () => {
-  const { searchQuery } = useSearch(); // Access search query from context
-
-  const emails = [
-    { id: 1, subject: 'Meeting Reminder', sender: 'HR@company.com', date: '2025-05-04', preview: 'Don\'t forget the meeting tomorrow at 10 AM.' },
-    { id: 2, subject: 'Invoice from Vendor', sender: 'vendor@company.com', date: '2025-05-03', preview: 'Here is the invoice for the latest order.' },
-    { id: 3, subject: 'Project Update', sender: 'manager@company.com', date: '2025-05-02', preview: 'The project is going well and we are on track for delivery.' },
-  ];
+  const { searchQuery } = useSearch();
+  const { trashEmails, deleteTrashEmail } = useTrash();
 
   // Filter emails based on search query
-  const filteredEmails = emails.filter(
+  const filteredEmails = trashEmails.filter(
     (email) =>
       email.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
       email.sender.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      email.preview.toLowerCase().includes(searchQuery.toLowerCase())
+      email.body.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -31,9 +27,17 @@ const Trash = () => {
           >
             <Link to={`/trash/${email.id}`} className="block">
               <h2 className="text-xl font-semibold">{email.subject}</h2>
-              <p className="text-gray-300">{email.preview}</p>
+              <p className="text-gray-300">{email.body.slice(0, 50)}...</p>
               <p className="text-sm text-gray-400">{`From: ${email.sender} | ${email.date}`}</p>
             </Link>
+
+            {/* Delete Permanently Button */}
+            <button
+              onClick={() => deleteTrashEmail(email.id)}
+              className="mt-2 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+            >
+              Delete Permanently
+            </button>
           </div>
         ))}
       </div>

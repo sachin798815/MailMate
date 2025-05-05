@@ -3,10 +3,9 @@ import { useSearch } from '../contexts/SearchContext';
 import { useSent } from '../contexts/SentContext';
 
 const Sent = () => {
-  const { searchQuery } = useSearch(); // Access search query from context
-  const { sentEmails } = useSent(); // Access sent emails from SentContext
+  const { searchQuery } = useSearch();
+  const { sentEmails, deleteSentEmail } = useSent();
 
-  // Filter emails based on search query
   const filteredEmails = sentEmails.filter(
     (email) =>
       email.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -32,6 +31,14 @@ const Sent = () => {
                 <p className="text-gray-300">{email.body.substring(0, 50)}...</p>
                 <p className="text-sm text-gray-400">{`To: ${email.recipient} | ${email.date}`}</p>
               </Link>
+
+              {/* Delete Button */}
+              <button
+                onClick={() => deleteSentEmail(email.id)}
+                className="mt-2 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+              >
+                Delete from Sent
+              </button>
             </div>
           ))}
         </div>

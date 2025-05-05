@@ -1,12 +1,12 @@
 import { useParams, useNavigate } from 'react-router-dom';
-// import { useInbox } from '../contexts/InboxContext';
+import { useInbox } from '../contexts/InboxContext';
 import { useSent } from '../contexts/SentContext';
 // import { useTrash } from '../contexts/TrashContext'; 
 
 const EmailDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const { inboxEmails } = useInbox();
+  const { inboxEmails } = useInbox();
   const { sentEmails } = useSent();
   // const { trashEmails } = useTrash();
 
@@ -14,8 +14,8 @@ const EmailDetails = () => {
 
   // Find email in any of the contexts
   const email = sentEmails.find((e) => e.id === numericId)
-    //|| inboxEmails.find((e) => e.id === numericId) ||
-    // trashEmails.find((e) => e.id === numericId);
+    || inboxEmails.find((e) => e.id === numericId)
+    //|| trashEmails.find((e) => e.id === numericId);
 
   if (!email) {
     return <div className="text-white">Email not found</div>;
