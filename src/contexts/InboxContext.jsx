@@ -10,6 +10,7 @@ export const InboxProvider = ({ children }) => {
       subject: 'Meeting Reminder',
       body: "Don't forget the meeting tomorrow at 10 AM.",
       date: '2025-05-04',
+      read: false, // NEW
     },
     {
       id: 2,
@@ -17,6 +18,7 @@ export const InboxProvider = ({ children }) => {
       subject: 'Invoice from Vendor',
       body: 'Here is the invoice for the latest order.',
       date: '2025-05-03',
+      read: false, // NEW
     },
   ]);
 
@@ -24,12 +26,20 @@ export const InboxProvider = ({ children }) => {
     setInboxEmails((prev) => [...prev, email]);
   };
 
+  const markAsRead = (id) => {
+    setInboxEmails((prev) =>
+      prev.map((email) =>
+        email.id === id ? { ...email, read: true } : email
+      )
+    );
+  };
+
   const deleteInboxEmail = (id) => {
     setInboxEmails((prev) => prev.filter((email) => email.id !== id));
   };
 
   return (
-    <InboxContext.Provider value={{ inboxEmails, addInboxEmail, deleteInboxEmail }}>
+    <InboxContext.Provider value={{ inboxEmails, addInboxEmail, markAsRead, deleteInboxEmail }}>
       {children}
     </InboxContext.Provider>
   );

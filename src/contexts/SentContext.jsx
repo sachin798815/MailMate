@@ -13,6 +13,7 @@ export const SentProvider = ({ children }) => {
     setSentEmails((prevEmails) => prevEmails.filter((email) => email.id !== id));
   };
 
+
   return (
     <SentContext.Provider value={{ sentEmails, addSentEmail, deleteSentEmail }}>
       {children}
