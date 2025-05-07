@@ -1,18 +1,87 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
+import axios from 'axios';
 
 const SentContext = createContext();
 
 export const SentProvider = ({ children }) => {
   const [sentEmails, setSentEmails] = useState([]);
+  const { user } = useAuth();
 
-  const addSentEmail = (email) => {
-    setSentEmails((prevEmails) => [...prevEmails, email]);
+  // Extract username before '@' for the Firebase path
+  const getUsername = (email) => {
+    if (!email) return null;
+    return email.split('@')[0];
   };
 
-  const deleteSentEmail = (id) => {
-    setSentEmails((prevEmails) => prevEmails.filter((email) => email.id !== id));
+  // Fetch sent emails for the logged-in user
+  useEffect(() => {
+    const fetchSentEmails = async () => {
+      if (!user) {
+        setSentEmails([]); // Clear when logged out
+        return;
+      }
+
+      const userId = getUsername(user.email);
+      if (!userId) return;
+
+      try {
+        const res = await axios.get(
+          `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${userId}/sent.json`
+        );
+        const data = res.data;
+
+        if (data) {
+          // Convert object to array with id
+          const emailsArray = Object.keys(data).map((key) => ({
+            id: key,
+            ...data[key],
+          }));
+          setSentEmails(emailsArray);
+        } else {
+          setSentEmails([]);
+        }
+      } catch (err) {
+        console.error('Error fetching sent emails:', err);
+      }
+    };
+
+    fetchSentEmails();
+  }, [user]);
+
+  // Add sent email
+  const addSentEmail = async (email) => {
+    if (!user) return;
+    const userId = getUsername(user.email);
+    if (!userId) return;
+
+    try {
+      const res = await axios.post(
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${userId}/sent.json`,
+        email
+      );
+      const newEmail = { id: res.data.name, ...email }; // Firebase returns { name: id }
+      setSentEmails((prev) => [...prev, newEmail]);
+    } catch (err) {
+      console.error('Error adding sent email:', err);
+    }
   };
 
+  // Delete sent email
+  const deleteSentEmail = async (id) => {
+    if (!user) return;
+    const userId = getUsername(user.email);
+    if (!userId) return;
+
+    try {
+      await axios.delete(
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${userId}/sent/${id}.json`
+      );
+      setSentEmails((prev) => prev.filter((email) => email.id !== id));
+    } catch (err) {
+      console.error('Error deleting sent email:', err);
+    }
+  };
 
   return (
     <SentContext.Provider value={{ sentEmails, addSentEmail, deleteSentEmail }}>
