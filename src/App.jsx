@@ -19,11 +19,11 @@ const App = () => {
   };
 
   return (
-    <SearchProvider>
-      <SentProvider>
-        <InboxProvider>
-          <TrashProvider>
-            <AuthProvider>
+    <AuthProvider> {/* ✅ moved to the outermost */}
+      <SearchProvider>
+        <SentProvider>
+          <InboxProvider>
+            <TrashProvider>
               <Router>
                 <Routes>
                   {/* Auth Page Route */}
@@ -60,11 +60,11 @@ const App = () => {
                   />
                 </Routes>
               </Router>
-            </AuthProvider>
-          </TrashProvider>
-        </InboxProvider>
-      </SentProvider>
-    </SearchProvider>
+            </TrashProvider>
+          </InboxProvider>
+        </SentProvider>
+      </SearchProvider>
+    </AuthProvider>
   );
 };
 
