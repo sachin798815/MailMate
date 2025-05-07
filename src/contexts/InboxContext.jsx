@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
-import axios from 'axios';
+import { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
+import axios from "axios";
 
 const InboxContext = createContext();
 
@@ -9,13 +9,15 @@ export const InboxProvider = ({ children }) => {
   const { user } = useAuth();
 
   // Extract username (before @) to use as dynamic DB key
-  const username = user?.email?.split('@')[0];
+  const username = user?.email?.split("@")[0];
 
   // Fetch inbox emails for the logged-in user
   useEffect(() => {
+    let intervalId;
+
     const fetchInboxEmails = async () => {
       if (!user || !username) {
-        setInboxEmails([]); // Clear out when logged out
+        setInboxEmails([]);
         return;
       }
 
@@ -26,21 +28,29 @@ export const InboxProvider = ({ children }) => {
         const data = res.data;
 
         if (data) {
-          // Convert object to array and add `id` field
           const emailsArray = Object.keys(data).map((key) => ({
-            id: key, // Firebase unique key
+            id: key,
             ...data[key],
           }));
           setInboxEmails(emailsArray);
         } else {
-          setInboxEmails([]); // No emails
+          setInboxEmails([]);
         }
       } catch (err) {
-        console.error('Error fetching inbox emails:', err);
+        console.error("Error fetching inbox emails:", err);
       }
     };
 
+    // Fetch immediately on mount
     fetchInboxEmails();
+
+    // Set interval to fetch every 5 seconds
+    intervalId = setInterval(fetchInboxEmails, 5000);
+
+    // Cleanup on unmount or user change
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [user, username]);
 
   // Mark as read
@@ -59,7 +69,7 @@ export const InboxProvider = ({ children }) => {
         )
       );
     } catch (err) {
-      console.error('Error marking email as read:', err);
+      console.error("Error marking email as read:", err);
     }
   };
 
@@ -72,7 +82,7 @@ export const InboxProvider = ({ children }) => {
       );
       setInboxEmails((prev) => prev.filter((email) => email.id !== id));
     } catch (err) {
-      console.error('Error deleting inbox email:', err);
+      console.error("Error deleting inbox email:", err);
     }
   };
 
