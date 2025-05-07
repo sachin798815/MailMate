@@ -7,7 +7,6 @@ const Inbox = () => {
   const { searchQuery } = useSearch();
   const { inboxEmails, deleteInboxEmail } = useInbox();
   const { addTrashEmail } = useTrash();
-  const navigate =useNavigate();
 
   const filteredEmails = inboxEmails.filter(
     (email) =>
@@ -22,7 +21,6 @@ const Inbox = () => {
 
     // Remove the email from the Inbox
     deleteInboxEmail(email.id);
-    navigate('/trash');
   };
 
   return (
