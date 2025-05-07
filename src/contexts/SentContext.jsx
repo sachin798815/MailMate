@@ -8,26 +8,20 @@ export const SentProvider = ({ children }) => {
   const [sentEmails, setSentEmails] = useState([]);
   const { user } = useAuth();
 
-  // Extract username before '@' for the Firebase path
-  const getUsername = (email) => {
-    if (!email) return null;
-    return email.split('@')[0];
-  };
+  // Extract username before '@' once and reuse
+  const username = user?.email?.split('@')[0];
 
   // Fetch sent emails for the logged-in user
   useEffect(() => {
     const fetchSentEmails = async () => {
-      if (!user) {
+      if (!user || !username) {
         setSentEmails([]); // Clear when logged out
         return;
       }
 
-      const userId = getUsername(user.email);
-      if (!userId) return;
-
       try {
         const res = await axios.get(
-          `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${userId}/sent.json`
+          `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/sent.json`
         );
         const data = res.data;
 
@@ -47,17 +41,15 @@ export const SentProvider = ({ children }) => {
     };
 
     fetchSentEmails();
-  }, [user]);
+  }, [user, username]);
 
   // Add sent email
   const addSentEmail = async (email) => {
-    if (!user) return;
-    const userId = getUsername(user.email);
-    if (!userId) return;
+    if (!user || !username) return;
 
     try {
       const res = await axios.post(
-        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${userId}/sent.json`,
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/sent.json`,
         email
       );
       const newEmail = { id: res.data.name, ...email }; // Firebase returns { name: id }
@@ -69,13 +61,11 @@ export const SentProvider = ({ children }) => {
 
   // Delete sent email
   const deleteSentEmail = async (id) => {
-    if (!user) return;
-    const userId = getUsername(user.email);
-    if (!userId) return;
+    if (!user || !username) return;
 
     try {
       await axios.delete(
-        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${userId}/sent/${id}.json`
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/sent/${id}.json`
       );
       setSentEmails((prev) => prev.filter((email) => email.id !== id));
     } catch (err) {

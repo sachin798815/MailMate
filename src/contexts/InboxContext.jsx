@@ -8,17 +8,20 @@ export const InboxProvider = ({ children }) => {
   const [inboxEmails, setInboxEmails] = useState([]);
   const { user } = useAuth();
 
+  // Extract username (before @) to use as dynamic DB key
+  const username = user?.email?.split('@')[0];
+
   // Fetch inbox emails for the logged-in user
   useEffect(() => {
     const fetchInboxEmails = async () => {
-      if (!user) {
+      if (!user || !username) {
         setInboxEmails([]); // Clear out when logged out
         return;
       }
 
       try {
         const res = await axios.get(
-          `https://mailmate-ee02b-default-rtdb.firebaseio.com//users/${user.localId}/inbox.json`
+          `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/inbox.json`
         );
         const data = res.data;
 
@@ -38,14 +41,14 @@ export const InboxProvider = ({ children }) => {
     };
 
     fetchInboxEmails();
-  }, [user]);
+  }, [user, username]);
 
   // Add email
   const addInboxEmail = async (email) => {
-    if (!user) return;
+    if (!user || !username) return;
     try {
       const res = await axios.post(
-        `https://mailmate-ee02b-default-rtdb.firebaseio.com//users/${user.localId}/inbox.json`,
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/inbox.json`,
         email
       );
       const newEmail = { id: res.data.name, ...email }; // Firebase returns { name: newId }
@@ -58,11 +61,11 @@ export const InboxProvider = ({ children }) => {
   // Mark as read
   const markAsRead = async (id) => {
     const email = inboxEmails.find((e) => e.id === id);
-    if (!email || !user) return;
+    if (!email || !user || !username) return;
 
     try {
       await axios.patch(
-        `https://mailmate-ee02b-default-rtdb.firebaseio.com//users/${user.localId}/inbox/${id}.json`,
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/inbox/${id}.json`,
         { read: true }
       );
       setInboxEmails((prev) =>
@@ -77,10 +80,10 @@ export const InboxProvider = ({ children }) => {
 
   // Delete email
   const deleteInboxEmail = async (id) => {
-    if (!user) return;
+    if (!user || !username) return;
     try {
       await axios.delete(
-        `https://mailmate-ee02b-default-rtdb.firebaseio.com//users/${user.localId}/inbox/${id}.json`
+        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/inbox/${id}.json`
       );
       setInboxEmails((prev) => prev.filter((email) => email.id !== id));
     } catch (err) {

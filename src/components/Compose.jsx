@@ -11,12 +11,21 @@ const Compose = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  // Extract sender and recipient usernames (before @)
+  const senderId = user?.email?.split("@")[0];
+  const recipientId = to ? to.split("@")[0] : null;
+
   // Function to handle the send action
   const handleSend = async (e) => {
     e.preventDefault();
 
     if (!user) {
       alert("You must be logged in to send emails.");
+      return;
+    }
+
+    if (!recipientId) {
+      alert("Invalid recipient email.");
       return;
     }
 
@@ -29,9 +38,6 @@ const Compose = () => {
       date: new Date().toISOString(),
       read: false,
     };
-
-    // Extract recipient's username, before @
-    const recipientId = to.split("@")[0];
 
     try {
       // Add email to the sender's Sent folder
