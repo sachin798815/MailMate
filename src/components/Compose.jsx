@@ -12,7 +12,7 @@ const Compose = () => {
   const navigate = useNavigate();
 
   // Extract sender and recipient usernames (before @)
-  const senderId = user?.email?.split("@")[0];
+  // const senderId = user?.email?.split("@")[0];
   const recipientId = to ? to.split("@")[0] : null;
 
   // Function to handle the send action

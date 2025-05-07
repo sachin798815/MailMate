@@ -17,11 +17,13 @@ const Sent = () => {
     <div className="text-white">
       <h1 className="text-3xl font-bold mb-4">Sent</h1>
 
-      {filteredEmails.length === 0 ? (
-        <p className="text-gray-400">No sent emails found.</p>
-      ) : (
-        <div className="space-y-4">
-          {filteredEmails.map((email) => (
+      <div className="space-y-4">
+        {filteredEmails.length === 0 ? (
+          <div className="text-center text-gray-400 mt-8">
+            No sent emails found.
+          </div>
+        ) : (
+          filteredEmails.map((email) => (
             <div
               key={email.id}
               className="bg-secondary-dark p-4 rounded-lg shadow-md hover:shadow-lg transition-all"
@@ -40,9 +42,9 @@ const Sent = () => {
                 Delete from Sent
               </button>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 };

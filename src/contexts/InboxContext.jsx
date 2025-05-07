@@ -43,21 +43,6 @@ export const InboxProvider = ({ children }) => {
     fetchInboxEmails();
   }, [user, username]);
 
-  // Add email
-  const addInboxEmail = async (email) => {
-    if (!user || !username) return;
-    try {
-      const res = await axios.post(
-        `https://mailmate-ee02b-default-rtdb.firebaseio.com/users/${username}/inbox.json`,
-        email
-      );
-      const newEmail = { id: res.data.name, ...email }; // Firebase returns { name: newId }
-      setInboxEmails((prev) => [...prev, newEmail]);
-    } catch (err) {
-      console.error('Error adding inbox email:', err);
-    }
-  };
-
   // Mark as read
   const markAsRead = async (id) => {
     const email = inboxEmails.find((e) => e.id === id);
@@ -93,7 +78,7 @@ export const InboxProvider = ({ children }) => {
 
   return (
     <InboxContext.Provider
-      value={{ inboxEmails, addInboxEmail, markAsRead, deleteInboxEmail }}
+      value={{ inboxEmails, markAsRead, deleteInboxEmail }}
     >
       {children}
     </InboxContext.Provider>
