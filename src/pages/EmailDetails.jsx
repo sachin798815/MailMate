@@ -11,11 +11,9 @@ const EmailDetails = () => {
   const { sentEmails } = useSent();
   const { trashEmails } = useTrash();
 
-  const numericId = parseInt(id, 10);
-
-  const inboxEmail = inboxEmails.find((e) => e.id === numericId);
-  const sentEmail = sentEmails.find((e) => e.id === numericId);
-  const trashEmail = trashEmails.find((e) => e.id === numericId);
+  const inboxEmail = inboxEmails.find((e) => e.id === id);
+  const sentEmail = sentEmails.find((e) => e.id === id);
+  const trashEmail = trashEmails.find((e) => e.id === id);
 
   const email = inboxEmail || sentEmail || trashEmail;
 
@@ -43,7 +41,12 @@ const EmailDetails = () => {
       <h1 className="text-3xl font-bold mb-4">{email.subject}</h1>
       <p className="text-gray-300 mb-4">{email.body}</p>
       <p className="text-sm text-gray-400">
-        {`From: ${email.sender || email.recipient} | ${new Date(email.date).toLocaleString()}`}
+        {inboxEmail && `From: ${email.sender} | `}
+        {sentEmail && `To: ${email.recipient} | `}
+        {trashEmail && (email.sender
+          ? `From: ${email.sender} | `
+          : `To: ${email.recipient} | `)}
+        {new Date(email.date).toLocaleString()}
       </p>
     </div>
   );

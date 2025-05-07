@@ -17,17 +17,17 @@ const Home = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Stat Cards */}
-        <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-lg transition">
+        <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-xl transition">
           <h2 className="text-xl font-semibold mb-2">Unread Emails</h2>
           <p className="text-4xl font-bold">{unreadCount}</p>
         </div>
 
-        <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-lg transition">
+        <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-xl transition">
           <h2 className="text-xl font-semibold mb-2">Total Emails</h2>
           <p className="text-4xl font-bold">{totalInboxCount}</p>
         </div>
 
-        <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-lg transition">
+        <div className="bg-secondary-dark p-6 rounded-lg shadow hover:shadow-xl transition">
           <h2 className="text-xl font-semibold mb-2">Sent Emails</h2>
           <p className="text-4xl font-bold">{sentCount}</p>
         </div>

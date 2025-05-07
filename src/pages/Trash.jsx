@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useSearch } from '../contexts/SearchContext';
-import { useTrash } from '../contexts/TrashContext';
+import { Link } from "react-router-dom";
+import { useSearch } from "../contexts/SearchContext";
+import { useTrash } from "../contexts/TrashContext";
 
 const Trash = () => {
   const { searchQuery } = useSearch();
@@ -27,12 +27,16 @@ const Trash = () => {
           filteredEmails.map((email) => (
             <div
               key={email.id}
-              className="bg-secondary-dark p-4 rounded-lg shadow-md hover:shadow-lg transition-all"
+              className="bg-secondary-dark p-4 rounded-lg shadow-md hover:shadow-xl transition-all"
             >
               <Link to={`/trash/${email.id}`} className="block">
                 <h2 className="text-xl font-semibold">{email.subject}</h2>
                 <p className="text-gray-300">{email.body.slice(0, 50)}...</p>
-                <p className="text-sm text-gray-400">{`From: ${email.sender} | ${email.date}`}</p>
+                <p className="text-sm text-gray-400">
+                  {`From: ${email.sender} | ${new Date(
+                    email.date
+                  ).toLocaleString()}`}
+                </p>{" "}
               </Link>
 
               {/* Delete Permanently Button */}

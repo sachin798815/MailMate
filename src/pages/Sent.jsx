@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useSearch } from '../contexts/SearchContext';
-import { useSent } from '../contexts/SentContext';
+import { Link } from "react-router-dom";
+import { useSearch } from "../contexts/SearchContext";
+import { useSent } from "../contexts/SentContext";
 
 const Sent = () => {
   const { searchQuery } = useSearch();
@@ -26,12 +26,18 @@ const Sent = () => {
           filteredEmails.map((email) => (
             <div
               key={email.id}
-              className="bg-secondary-dark p-4 rounded-lg shadow-md hover:shadow-lg transition-all"
+              className="bg-secondary-dark p-4 rounded-lg shadow-md hover:shadow-xl transition-all"
             >
               <Link to={`/sent/${email.id}`} className="block">
                 <h2 className="text-xl font-semibold">{email.subject}</h2>
-                <p className="text-gray-300">{email.body.substring(0, 50)}...</p>
-                <p className="text-sm text-gray-400">{`To: ${email.recipient} | ${email.date}`}</p>
+                <p className="text-gray-300">
+                  {email.body.substring(0, 50)}...
+                </p>
+                <p className="text-sm text-gray-400">
+                  {`From: ${email.sender} | ${new Date(
+                    email.date
+                  ).toLocaleString()}`}
+                </p>{" "}
               </Link>
 
               {/* Delete Button */}
