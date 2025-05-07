@@ -21,7 +21,7 @@ const EmailDetails = () => {
 
   useEffect(() => {
     if (!email) return;
-    // ✅ Only mark as read if it's an inbox email
+    // Only mark as read if it's an inbox email
     if (inboxEmail && !email.read) {
       markInboxAsRead(email.id);
     }
@@ -42,9 +42,9 @@ const EmailDetails = () => {
 
       <h1 className="text-3xl font-bold mb-4">{email.subject}</h1>
       <p className="text-gray-300 mb-4">{email.body}</p>
-      <p className="text-sm text-gray-400">{`From: ${
-        email.sender || email.recipient
-      } | ${email.date}`}</p>
+      <p className="text-sm text-gray-400">
+        {`From: ${email.sender || email.recipient} | ${new Date(email.date).toLocaleString()}`}
+      </p>
     </div>
   );
 };

@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useSent } from '../contexts/SentContext';
+import { useState } from "react";
+import { useSent } from "../contexts/SentContext";
 
 const Compose = () => {
-  const [to, setTo] = useState('');
-  const [subject, setSubject] = useState('');
-  const [body, setBody] = useState('');
+  const [to, setTo] = useState("");
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
   const { addSentEmail } = useSent();
 
   const handleSend = (e) => {
@@ -14,13 +14,13 @@ const Compose = () => {
       recipient: to,
       subject,
       body,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString(),
     };
     addSentEmail(newEmail);
-    alert('Email sent successfully!');
-    setTo('');
-    setSubject('');
-    setBody('');
+    alert("Email sent successfully!");
+    setTo("");
+    setSubject("");
+    setBody("");
   };
 
   return (
